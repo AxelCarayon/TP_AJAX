@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="CSS/tableformat.css" rel="stylesheet">
+        <!-- On charge la bibliothèque JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- On charge le moteur de template mustache https://mustache.github.io/ -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+    </head>
+    <body>
+        <!-- La zone où les résultats vont s'afficher -->
+	<div id="discounts"></div>
+		
+	<!-- Le template qui sert à formatter la liste des clients résultats -->
+	<script id="DiscountsTemplate" type="text/template">
+                <TABLE BORDER="1">
+                                {{! Un commentaire Mustache }}
+				<TR><TH>Code</TH><TH>Taux</TH><TH>Action</TH></TR>
+				{{! Pour chaque enregistrement }}
+				{{#records}}
+					{{! Une ligne dans la table }}
+					<TR><TD>{{code}}</TD><TD>{{rate}}</TD><TD><button id ={{code}}>DELETE</button></TD></TR>
+				{{/records}}
+			</TABLE>
+	</script>
+        <script type="text/javascript" src="JavaScript/JS_DiscountCode.js"></script>
+    </body>
+</html>
