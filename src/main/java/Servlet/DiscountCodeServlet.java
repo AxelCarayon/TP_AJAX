@@ -46,63 +46,70 @@ public class DiscountCodeServlet extends HttpServlet {
         ExtendedDAO dao = new ExtendedDAO(DataSourceFactory.getDataSource());
         String code = request.getParameter("code");
         Double rate;
-        try{
+        try {
             rate = Double.parseDouble(request.getParameter("rate"));
-        }catch(Exception e){
+        } catch (Exception e) {
             rate = null;
         }
         String action = "";
         action += request.getParameter("action");
         String error = "";
-        
+
         Properties resultat = new Properties();
-        
+
         try {
-			resultat.put("records", dao.existingDiscountCode());
-		} catch (Exception ex) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resultat.put("records", Collections.EMPTY_LIST);
-			resultat.put("message", ex.getMessage());
-		}
+            System.out.println(code + rate + action);
+            if (action.equals("ADD")){
+               error = this.addDiscount(dao,code,rate);
+            }
+            if (action.equals("DELETE")){
+                error = this.deleteDiscount(dao,code);
+            }
+            resultat.put("records", dao.existingDiscountCode());
+        } catch (Exception ex) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resultat.put("records", Collections.EMPTY_LIST);
+            resultat.put("message", ex.getMessage());
+        }
         try (PrintWriter out = response.getWriter()) {
-			// On spécifie que la servlet va générer du JSON
-			response.setContentType("application/json;charset=UTF-8");
-			// Générer du JSON
-			// Gson gson = new Gson();
-			// setPrettyPrinting pour que le JSON généré soit plus lisible
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String gsonData = gson.toJson(resultat);
-			out.println(gsonData);
-		}
+            // On spécifie que la servlet va générer du JSON
+            response.setContentType("application/json;charset=UTF-8");
+            // Générer du JSON
+            // Gson gson = new Gson();
+            // setPrettyPrinting pour que le JSON généré soit plus lisible
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String gsonData = gson.toJson(resultat);
+            out.println(gsonData);
+        }
     }
-    
+
     /*
     Essaie de supprimer la réduction, renvoie un string vide si l'opération est un succès, 
     renvoie le message d'erreur sinon.
-    */
-    private String deleteDiscount(ExtendedDAO dao, String code){
-        try{
+     */
+    private String deleteDiscount(ExtendedDAO dao, String code) {
+        try {
             dao.deleteDiscount(code);
             return "";
-            }catch(Exception e){
-                return "Impossible de supprimer la réduction, elle est utilisée ailleurs.";
-            }
+        } catch (Exception e) {
+            return "Impossible de supprimer la réduction, elle est utilisée ailleurs.";
+        }
     }
-    
+
     /*
     Essaie d'ajouter la réduction, renvoie un string vide si l'opération est un succès, 
     renvoie le message d'erreur sinon.
-    */
-    private String addDiscount(ExtendedDAO dao,String code, Double rate){
-        try{
-                if (code.equals("") || rate==null){
-                    return "Le code ou le taux n'as pas été renseigné.";
-                }
-                dao.insertDiscount(new DiscountEntity(code,rate));
-                return "";
-            }catch(Exception e){
-                return "Impossible d'ajouter la réduction, elle existe déjà.";
-            }   
+     */
+    private String addDiscount(ExtendedDAO dao, String code, Double rate) {
+        try {
+            if (code.equals("") || rate == null) {
+                return "Le code ou le taux n'as pas été renseigné.";
+            }
+            dao.insertDiscount(new DiscountEntity(code, rate));
+            return "";
+        } catch (Exception e) {
+            return "Impossible d'ajouter la réduction, elle existe déjà.";
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

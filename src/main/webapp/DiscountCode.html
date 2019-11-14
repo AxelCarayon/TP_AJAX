@@ -21,13 +21,14 @@ and open the template in the editor.
 		
 	<!-- Le template qui sert à formatter la liste des clients résultats -->
 	<script id="DiscountsTemplate" type="text/template">
+            <h1>Edition des taux de remise</h1>
                 <TABLE BORDER="1">
                                 {{! Un commentaire Mustache }}
 				<TR><TH>Code</TH><TH>Taux</TH><TH>Action</TH></TR>
 				{{! Pour chaque enregistrement }}
 				{{#records}}
 					{{! Une ligne dans la table }}
-					<TR><TD>{{code}}</TD><TD>{{rate}}</TD><TD><button id ={{code}}>DELETE</button></TD></TR>
+					<TR><TD>{{code}}</TD><TD>{{rate}}</TD><TD><button id ={{code}} onclick="delet(this.id)">DELETE</button></TD></TR>
 				{{/records}}
 			</TABLE>
 	</script>
