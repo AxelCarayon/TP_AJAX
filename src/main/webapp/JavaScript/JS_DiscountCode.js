@@ -18,6 +18,33 @@ function showDiscounts() {
 }
 
 
+//Fonction pour ajouter un élément à la table et empécher le redirect
+$(function() {
+    $('form').submit(function() {
+        var rate = document.getElementById("GETrate").value;
+        var code = document.getElementById("GETcode").value;
+        console.log(rate,code);
+        $.ajax(
+                {
+            type: 'POST',
+            url: 'DiscountCodeServlet?code='+code+'&rate='+rate+'&action=ADD',
+            success: // La fonction qui traite les résultats
+                function (result) {
+                    // Le code source du template est dans la page
+                    var template = $('#DiscountsTemplate').html();
+                    // On combine le template avec le résultat de la requête
+                    var processedTemplate = Mustache.to_html(template, {records: result.records});
+                    // On affiche le résultat dans la page
+                    $('#discounts').html(processedTemplate);
+                },
+        error: showError
+        });
+        
+        return false;
+    }); 
+});
+
+
 function delet(clicked_id){
     $.ajax({
         url: "DiscountCodeServlet?code="+clicked_id+"&action=DELETE",

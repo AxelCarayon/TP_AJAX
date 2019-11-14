@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Edition des taux de remise</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="CSS/tableformat.css" rel="stylesheet">
@@ -16,12 +16,20 @@ and open the template in the editor.
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
     </head>
     <body>
+        
+        <!-- Le formulaire pour ajouter un taux de réduction -->
+        <h1>Edition des taux de remise</h1>
+        <form method='GET'>
+			Code : <input name="code" id='GETcode' size="1" maxlength="1" pattern="[A-Z]{1}+" title="Une lettre en MAJUSCULES"><br/>
+			Taux : <input name="rate" id='GETrate' type="number" step="0.01" min="0.0" max="99.99" size="5"><br/>
+			<input type="hidden" name="action" value="ADD">
+			<input type="submit" value="Ajouter">
+		</form>
         <!-- La zone où les résultats vont s'afficher -->
 	<div id="discounts"></div>
 		
 	<!-- Le template qui sert à formatter la liste des clients résultats -->
 	<script id="DiscountsTemplate" type="text/template">
-            <h1>Edition des taux de remise</h1>
                 <TABLE BORDER="1">
                                 {{! Un commentaire Mustache }}
 				<TR><TH>Code</TH><TH>Taux</TH><TH>Action</TH></TR>
