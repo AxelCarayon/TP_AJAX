@@ -66,6 +66,7 @@ public class DiscountCodeServlet extends HttpServlet {
                 error = this.deleteDiscount(dao,code);
             }
             resultat.put("records", dao.existingDiscountCode());
+            resultat.put("error",error);
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resultat.put("records", Collections.EMPTY_LIST);

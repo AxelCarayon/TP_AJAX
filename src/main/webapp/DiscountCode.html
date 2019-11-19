@@ -25,10 +25,12 @@ and open the template in the editor.
 			<input type="hidden" name="action" value="ADD">
 			<input type="submit" value="Ajouter">
 		</form>
+        <!-- La zone où l'erreur va s'afficher si besoin. -->
+        <div id='error'></div>
         <!-- La zone où les résultats vont s'afficher -->
 	<div id="discounts"></div>
 		
-	<!-- Le template qui sert à formatter la liste des clients résultats -->
+	<!-- Le template qui sert à formatter la liste des réductions -->
 	<script id="DiscountsTemplate" type="text/template">
                 <TABLE BORDER="1">
                                 {{! Un commentaire Mustache }}
@@ -40,6 +42,10 @@ and open the template in the editor.
 				{{/records}}
 			</TABLE>
 	</script>
+        <!-- Le template qui sert à formatter le message d'erreur-->
+        <script id='ErrorTemplate' type='text/template'>
+            {{error}}
+        </script>
         <script type="text/javascript" src="JavaScript/JS_DiscountCode.js"></script>
     </body>
 </html>

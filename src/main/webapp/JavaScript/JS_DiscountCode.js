@@ -8,10 +8,13 @@ function showDiscounts() {
                 function (result) {
                     // Le code source du template est dans la page
                     var template = $('#DiscountsTemplate').html();
+                    var errorTemplate = $('#ErrorTemplate').html();
                     // On combine le template avec le résultat de la requête
                     var processedTemplate = Mustache.to_html(template, {records: result.records});
+                    var processedErrorTemplate = Mustache.to_html(errorTemplate, {error:result.error});
                     // On affiche le résultat dans la page
                     $('#discounts').html(processedTemplate);
+                    $('#error').html(processedErrorTemplate);
                 },
         error: showError
     });
@@ -32,10 +35,13 @@ $(function() {
                 function (result) {
                     // Le code source du template est dans la page
                     var template = $('#DiscountsTemplate').html();
+                    var errorTemplate = $('#ErrorTemplate').html();
                     // On combine le template avec le résultat de la requête
                     var processedTemplate = Mustache.to_html(template, {records: result.records});
+                    var processedErrorTemplate = Mustache.to_html(errorTemplate, {error:result.error});
                     // On affiche le résultat dans la page
                     $('#discounts').html(processedTemplate);
+                    $('#error').html(processedErrorTemplate);
                 },
         error: showError
         });
@@ -53,10 +59,13 @@ function delet(clicked_id){
                 function (result) {
                     // Le code source du template est dans la page
                     var template = $('#DiscountsTemplate').html();
+                    var errorTemplate = $('#ErrorTemplate').html();
                     // On combine le template avec le résultat de la requête
                     var processedTemplate = Mustache.to_html(template, {records: result.records});
+                    var processedErrorTemplate = Mustache.to_html(errorTemplate, {error:result.error});
                     // On affiche le résultat dans la page
                     $('#discounts').html(processedTemplate);
+                    $('#error').html(processedErrorTemplate);
                 },
         error: showError
     });
